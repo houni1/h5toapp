@@ -29,8 +29,6 @@
             </template>
         </wx-open-launch-app>
     </div>
-    <!-- 引入vue.js -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <!-- 引入wx-js -->
     <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
     <script>
@@ -50,21 +48,6 @@
         btn.addEventListener('error', function (e) {
             console.log('fail===>', e.detail);
         });
-        // var app = new Vue({
-        //     el: '#app',
-        //     data: {
-        //     },
-        //     methods: {
-        //         // 开放标签error回调
-        //         handleErrorFn(event) {
-        //             console.log('开放标签error回调===>', event)
-        //         },
-        //         // 开放标签launch回调
-        //         handleLaunchFn(event) {
-        //             console.log('开放标签launch回调===>', event)
-        //         }
-        //     }
-        // })
     </script>
 </body>
 </html>
