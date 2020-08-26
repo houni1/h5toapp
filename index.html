@@ -23,8 +23,6 @@
             id="launch-btn"
             appid="wx14bf6ba4527c56c0"
             extinfo="这里是微信h5传递给app的指定参数"
-            @error="handleErrorFn"
-            @launch="handleLaunchFn"
         >
             <template>
                 <button class="btn" style="color: pink; background: #fff; border: 0;">App内查看</button>
@@ -32,7 +30,7 @@
         </wx-open-launch-app>
     </div>
     <!-- 引入vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
     <!-- 引入wx-js -->
     <script src="https://res2.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
     <script>
@@ -45,21 +43,28 @@
             jsApiList: [], // 必填，需要使用的JS接口列表
             openTagList: ['wx-open-launch-app'] // 可选，需要使用的开放标签列表，例如['wx-open-launch-app']
         });
-        var app = new Vue({
-            el: '#app',
-            data: {
-            },
-            methods: {
-                // 开放标签error回调
-                handleErrorFn(event) {
-                    console.log('开放标签error回调===>', event)
-                },
-                // 开放标签launch回调
-                handleLaunchFn(event) {
-                    console.log('开放标签launch回调===>', event)
-                }
-            }
-        })
+        var btn = document.getElementById('launch-btn');
+        btn.addEventListener('launch', function (e) {
+            console.log('success===>', e);
+        });
+        btn.addEventListener('error', function (e) {
+            console.log('fail===>', e.detail);
+        });
+        // var app = new Vue({
+        //     el: '#app',
+        //     data: {
+        //     },
+        //     methods: {
+        //         // 开放标签error回调
+        //         handleErrorFn(event) {
+        //             console.log('开放标签error回调===>', event)
+        //         },
+        //         // 开放标签launch回调
+        //         handleLaunchFn(event) {
+        //             console.log('开放标签launch回调===>', event)
+        //         }
+        //     }
+        // })
     </script>
 </body>
 </html>
