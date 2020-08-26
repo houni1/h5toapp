@@ -1,61 +1,65 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title></title>
-        <style type="text/css">
-            body{
-                padding-top: 30px;
-            }
-            .open-app {
-                margin: 30px;
-                border-radius: 5px;
-                padding: 10px 20px;
-                border: 1px solid #ccc;
-            }
-        </style>
-        <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-    </head>
-    <body>
-        
-        <a class="open-app">click me to app</a>
-        
-        <script type="text/javascript">
-
-            $('a').click(function() {
-                var u = navigator.userAgent;
-                var isWeixin = u.toLowerCase().indexOf('micromessenger') !== -1; // 微信内
-                var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端
-                var isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
-
-                //android端
-                if (isAndroid) {
-                    //安卓app的scheme协议
-                    window.location.href = 'bankofbj://95526.mobi';
-                    // window.location.href = 'taobao://';
-                    setTimeout(function(){
-                        let hidden = window.document.hidden || window.document.mozHidden || window.document.msHidden ||window.document.webkitHidden 
-                        if(typeof hidden =="undefined" || hidden ==false){
-                            //应用宝下载地址 (emmm 找不到淘宝应用宝的地址，这里放的是 lucky coffee 地址)
-                            window.location.href ="https://a.app.qq.com/o/simple.jsp?pkgname=com.lucky.luckyclient";
-                        }
-                    }, 2000);
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>微信h5跳转app</title>
+</head>
+<body>
+    <div id="app">
+        <div class="text-content">
+            <div class="title">解读微信内网页跳转到APP方法，使用微信开放标签wx-open-launch-app</div>
+            <div>
+                <p>1、功能说明</p>
+                <p>微信内置浏览器支持的开放标签可以让你的H5网页拉起APP。这个是不是很神奇也是很有必要的一个功能？微信为你想好啦~实现这个功能并不复杂，代码量可以忽略为0.但是一些相关的注意事项，准入规则还是必须要明确的，否则在开发过程中容易踩到各种坑。</p>
+            </div>
+            <div>
+                <p>2、接入逻辑</p>
+                <p>微信内置浏览器支持的开放标签可以让你的H5网页拉起APP。这个是不是很神奇也是很有必要的一个功能？微信为你想好啦~实现这个功能并不复杂，代码量可以忽略为0.但是一些相关的注意事项，准入规则还是必须要明确的，否则在开发过程中容易踩到各种坑。</p>
+            </div>
+        </div>
+        <wx-open-launch-app
+            id="launch-btn"
+            appid="wx14bf6ba4527c56c0"
+            extinfo="这里是微信h5传递给app的指定参数"
+            @error="handleErrorFn"
+            @launch="handleLaunchFn"
+        >
+            <template>
+                <button class="btn" style="color: pink; background: #fff; border: 0;">App内查看</button>
+            </template>
+        </wx-open-launch-app>
+    </div>
+    <!-- 引入vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入wx-js -->
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.6.0.js"></script>
+    <script>
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印
+            appId: 'wx14bf6ba4527c56c0', // 必填，公众号的唯一标识
+            timestamp: '1598409542', // 必填，生成签名的时间戳
+            nonceStr: 'RFkneupUvLCfir4M', // 必填，生成签名的随机串
+            signature: '872df7dcfff73a8c9a6505933bf3cd245b0208f0',// 必填，签名
+            jsApiList: [], // 必填，需要使用的JS接口列表
+            openTagList: ['wx-open-launch-app'] // 可选，需要使用的开放标签列表，例如['wx-open-launch-app']
+        });
+        var app = new Vue({
+            el: '#app',
+            data: {
+            },
+            methods: {
+                // 开放标签error回调
+                handleErrorFn(event) {
+                    console.log('开放标签error回调===>', event)
+                },
+                // 开放标签launch回调
+                handleLaunchFn(event) {
+                    console.log('开放标签launch回调===>', event)
                 }
-                //ios端
-                if (isIOS) {
-                    //ios的scheme协议
-                    window.location.href = 'bankofbj://95526.mobi';
-                    // window.location.href = 'taobao://';
-                    setTimeout(function(){
-                        let hidden = window.document.hidden || window.document.mozHidden || window.document.msHidden ||window.document.webkitHidden 
-                        if(typeof hidden =="undefined" || hidden ==false){
-                            //App store下载地址
-                            window.location.href = "http://itunes.apple.com/app/id387682726";
-                        }
-                    }, 2000);
-                }
-            });
-        </script>
-    </body>
+            }
+        })
+    </script>
+</body>
 </html>
